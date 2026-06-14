@@ -8,8 +8,11 @@ A RAG (Retrieval-Augmented Generation) chatbot built with **LangChain + LangGrap
 langgraph_rag/
 ├── app.py              # Main Streamlit app + LangGraph pipeline
 ├── requirements.txt    # Dependencies
+├── .env                # Your OpenAI API key (never commit this)
+├── .env.example        # Template for the .env file
+├── .gitignore          # Excludes .env, venv, vectorstore, pycache
 ├── data/
-│   └── knowledge.txt   # Default knowledge base (add your own .txt or .pdf files)
+│   └── knowledge.txt/or any other file   # Default knowledge base (add your own .txt or .pdf files)
 └── README.md
 ```
 
@@ -31,30 +34,64 @@ langgraph_rag/
 
 ## 🚀 Setup & Run
 
-### 1. Install dependencies
+### 1. Clone the repo
+```bash
+git clone https://github.com/ftahir85/langgraph-rag.git
+cd langgraph-rag
+```
+
+### 2. Create and activate virtual environment
+```bash
+python -m venv venv
+
+# Windows
+venv\Scripts\activate
+
+# Mac/Linux
+source venv/bin/activate
+```
+
+### 3. Install dependencies
 ```bash
 pip install -r requirements.txt
 ```
 
-### 2. Run the app
+### 4. Add your OpenAI API key
+Create a `.env` file in the project root:
+```bash
+OPENAI_API_KEY=sk-your-key-here
+```
+
+### 5. Add documents to the knowledge base
+Drop `.txt` or `.pdf` files into the `data/` folder.
+
+### 6. Run the app
 ```bash
 streamlit run app.py
 ```
 
-### 3. Enter your OpenAI API key in the sidebar
-
 ## 💡 How to Add More Documents
 
-- Drop `.txt` or `.pdf` files into the `data/` folder
-- Restart the app — the vector store rebuilds automatically
+**Option A — Via the sidebar UI:**
+- Upload a `.txt` or `.pdf` file using the sidebar uploader
+- The app automatically clears the old index and rebuilds with the new file
 
-## 🔍 LangChain vs Your From-Scratch RAG
+**Option B — Manually:**
+- Drop files directly into the `data/` folder
+- Delete the `vectorstore/` folder if it exists
+- Restart the app — the index rebuilds automatically
 
-| Feature              | Your RAG Project        | This Project               |
-|----------------------|-------------------------|----------------------------|
-| Embeddings           | sentence-transformers   | OpenAI text-embedding       |
-| Vector Store         | FAISS (manual)          | FAISS via LangChain         |
-| Chunking             | Manual                  | RecursiveCharacterTextSplitter |
-| LLM Call             | openai SDK directly     | ChatOpenAI (LangChain)      |
-| Flow Control         | Linear Python           | LangGraph StateGraph        |
-| Conditional Routing  | if/else                 | Conditional edges in graph  |
+## ⚡ FAISS Disk Caching
+
+On first run, the app embeds all documents and saves the FAISS index to disk:
+```
+vectorstore/
+└── faiss_index/
+    ├── index.faiss
+    └── index.pkl
+```
+Every restart after that loads the index from disk instantly — no re-embedding, no extra API calls.
+
+
+- [OpenAI GPT-4o-mini](https://platform.openai.com/docs/models) — answer generation
+- [Streamlit](https://streamlit.io/) — UI
