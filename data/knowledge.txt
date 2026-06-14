@@ -1,0 +1,68 @@
+## Artificial Intelligence Overview
+
+Artificial Intelligence (AI) is the simulation of human intelligence processes by machines, especially computer systems. AI includes learning, reasoning, and self-correction.
+
+## Machine Learning
+
+Machine Learning (ML) is a subset of AI where systems learn from data and improve over time without being explicitly programmed. Common ML algorithms include linear regression, decision trees, random forests, and support vector machines.
+
+## Deep Learning
+
+Deep Learning is a subfield of machine learning that uses neural networks with many layers (deep networks) to model complex patterns in data. It powers applications like image recognition, natural language processing, and speech recognition.
+
+## Large Language Models (LLMs)
+
+Large Language Models are AI systems trained on vast text datasets to understand and generate human language. Examples include GPT-4, Claude, Gemini, and LLaMA. They are used for chatbots, summarization, translation, and code generation.
+
+## RAG (Retrieval-Augmented Generation)
+
+RAG is a technique that combines retrieval systems with generative AI. Instead of relying solely on the model's training data, RAG fetches relevant documents from a knowledge base and injects them into the prompt. This improves accuracy and reduces hallucinations.
+
+RAG Pipeline Steps:
+1. Ingest documents and split them into chunks
+2. Embed each chunk using an embedding model
+3. Store embeddings in a vector database
+4. At query time, embed the user question
+5. Retrieve top-K similar chunks via cosine similarity
+6. Feed retrieved chunks + question to the LLM
+7. LLM generates a grounded answer
+
+## Vector Databases
+
+Vector databases store high-dimensional embeddings and allow fast similarity search. Popular options include FAISS (Facebook), Pinecone, Weaviate, Chroma, and Qdrant. FAISS is an open-source library ideal for local projects.
+
+## Embeddings
+
+Embeddings are numerical vector representations of text that capture semantic meaning. Similar texts have vectors that are close together in vector space. Common embedding models include OpenAI's text-embedding-ada-002 and open-source models like all-MiniLM-L6-v2 from sentence-transformers.
+
+## LangChain
+
+LangChain is a Python/JavaScript framework that simplifies building LLM applications. It provides abstractions for document loaders, text splitters, vector stores, chains, and agents. It significantly speeds up development of RAG pipelines.
+
+## LangGraph
+
+LangGraph is a library built on top of LangChain for building stateful, multi-step LLM workflows as graphs. Each node in the graph is a function, and edges define the flow of execution. It supports cycles, conditional branching, and human-in-the-loop patterns. LangGraph is ideal for complex agents.
+
+## LangGraph Key Concepts
+
+- State: A shared data structure passed between all nodes in the graph
+- Nodes: Python functions that receive state and return updates
+- Edges: Define transitions between nodes (static or conditional)
+- StateGraph: The main class to define and compile the graph
+- Checkpointers: Allow saving and resuming graph state for memory
+
+## NLP (Natural Language Processing)
+
+NLP is a field of AI focused on enabling computers to understand, interpret, and generate human language. Tasks include sentiment analysis, named entity recognition, machine translation, and question answering.
+
+## Python in AI
+
+Python is the dominant language in AI and ML due to its simplicity and powerful libraries. Key libraries include NumPy, Pandas, Scikit-learn, PyTorch, TensorFlow, HuggingFace Transformers, and LangChain.
+
+## Prompt Engineering
+
+Prompt engineering is the practice of designing input prompts to guide LLM behavior. Techniques include zero-shot prompting, few-shot prompting, chain-of-thought prompting, and retrieval-augmented prompting. Good prompts are clear, specific, and include examples when needed.
+
+## AI Ethics and Hallucinations
+
+AI hallucination refers to when an LLM generates confident but factually incorrect information. RAG reduces hallucinations by grounding answers in retrieved documents. AI ethics covers fairness, transparency, accountability, and safety in AI systems.
